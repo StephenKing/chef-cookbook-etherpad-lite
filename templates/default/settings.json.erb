@@ -1,0 +1,46 @@
+/*
+  This file must be valid JSON. But comments are allowed
+
+  Please edit settings.json, not settings.json.template
+  
+  Dropped off by chef
+*/
+{
+  //Ip and port which etherpad should bind at
+  "ip": "<%= node.etherpadlite.listen.ip %>",
+  "port" : <%= node.etherpadlite.listen.port %>,
+  
+  //The Type of the database. You can choose between dirty, sqlite and mysql
+  //You should use mysql or sqlite for anything else than testing or development
+  "dbType" : "mysql",
+  //the database specific settings
+  "dbSettings" : {
+    "user"    : "<%= node.etherpadlite.database.user %>", 
+    "host"    : "<%= node.etherpadlite.database.host %>", 
+    "password": "<%= node.etherpadlite.database.password %>", 
+    "database": "<%= node.etherpadlite.database.name %>"
+  },
+  
+  //the default text of a pad
+  "defaultPadText" : "<%= node.etherpadlite.settings.defaultPadText %>",
+  
+  /* Users must have a session to access pads. This effectively allows only group pads to be accessed. */
+  "requireSession" : false,
+
+  /* Users may edit pads but not create new ones. Pad creation is only via the API. This applies both to group pads and regular pads. */
+  "editOnly" : false,
+  
+  /* if true, all css & js will be minified before sending to the client. This will improve the loading performance massivly, 
+     but makes it impossible to debug the javascript/css */
+  "minify" : true,
+  
+  /* This is the path to the Abiword executable. Setting it to null, disables abiword.
+     Abiword is needed to enable the import/export of pads*/  
+  "abiword" : <%= case node.etherpadlite.settings.abiword when false then "false" else "\"" + node.etherpadlite.settings.abiword + "\"" end %>,
+  
+  /* This setting is used if you need http basic auth */
+  // "httpAuth" : "user:pass",
+
+  /* The log level we are using, can be: DEBUG, INFO, WARN, ERROR */
+  "loglevel": "<%= node.etherpadlite.settings.loglevel %>"
+}
